@@ -1,49 +1,35 @@
-let mode = document.querySelector("#modeChanger");
-let headline = document.getElementById("headline1");
-let body = document.querySelector("body");
-let line = document.querySelector("#line");
-let hr = document.querySelector("hr");
-let headline2 = document.querySelector("#headline2");
+document.addEventListener("DOMContentLoaded", function () {
+  const modeChanger = document.getElementById("modeChanger");
+  const body = document.body;
+  const passwordBoxes = document.querySelectorAll(".pass-box");
+  const loadingElements = document.querySelectorAll(".loading");
+  const passwordTexts = document.querySelectorAll(".Password1, .Password2");
+  const btn = document.getElementById("btn");
 
-mode.addEventListener("change", () => {
-  if (mode.checked) {
-    headline.style.color = "#000000";
-    body.style.backgroundColor = "#ECFDF5"
-    line.style.color = "#6B7280"
-    hr.style.color = "#E8E7E9"
-    headline2.style.color = "#10B981"
-    
-    
-  } else {
-    headline2.style.color = "#55F991"
-    headline.style.color = "aliceblue";
-    body.style.backgroundColor = "#1F2937"
-    hr.style.color = "#273549"
+  // Cambiar entre modo oscuro y claro
+  modeChanger.addEventListener("change", function () {
+      body.classList.toggle("light-mode");
+  });
+
+  // Generar contraseña
+  btn.addEventListener("click", function () {
+      passwordTexts.forEach(text => text.style.opacity = "0");
+      loadingElements.forEach(loading => loading.style.display = "flex");
+
+      setTimeout(() => {
+          loadingElements.forEach(loading => loading.style.display = "none");
+          passwordTexts[0].textContent = generatePassword();
+          passwordTexts[1].textContent = generatePassword();
+          passwordTexts.forEach(text => text.style.opacity = "1");
+      }, 1500); // Simula carga de 1.5 segundos
+  });
+
+  function generatePassword() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+      let password = "";
+      for (let i = 0; i < 12; i++) {
+          password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return password;
   }
 });
-
-
-const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const numberChars = "0123456789";
-const specialChars = "!@#$%^&*";
-
-const generatePassword = (length) => {
-  const allChars = `${lowercaseChars}${uppercaseChars}${numberChars}${specialChars}`;
-  let password = "";
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * allChars.length);
-    password += allChars.charAt(randomIndex);
-  }
-  return password;
-};
-
-const displayPassword = () => {
-  let dPassword1 = document.querySelector(".Password1");
-  dPassword1.textContent = generatePassword(13);
-  let dPassword2 = document.querySelector(".Password2");
-  dPassword2.textContent = generatePassword(12);
-};
-
-document.getElementById("btn").addEventListener("click", displayPassword);

@@ -9,22 +9,34 @@
   <body>
     <div class="container">
       <h2 id="headline1">Generate a</h2>
-      <h2 id="headline2">random password</h2>
+      <h2 id="headline2">Random Password</h2>
       <p id="line">Never use an insecure password</p>
       <button id="btn">Generate Password</button>
       <hr />
+      
+      <!-- Contenedor de contraseñas con efecto de carga -->
       <div class="password-container">
-        <button id="PassContainer">
+        <button class="pass-box" id="PassContainer1">
+          <div class="loading" id="loading1">
+            <div></div><div></div><div></div>
+          </div>
           <p class="Password1"></p>
-        <button id="PassContainer">
+        </button>
+        <button class="pass-box" id="PassContainer2">
+          <div class="loading" id="loading2">
+            <div></div><div></div><div></div>
+          </div>
           <p class="Password2"></p>
+        </button>
       </div>
-      <label class="switch" for="modeChanger">
+
+      <!-- Switch para cambiar el modo -->
+      <label class="switch">
         <input type="checkbox" id="modeChanger">
         <span class="slider round"></span>
       </label>
-      
     </div>
+
+    <script src="index.js"></script>
   </body>
-  <script src="index.js"></script>
 </html>
